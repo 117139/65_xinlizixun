@@ -1,0 +1,14 @@
+
+.cu-custom.data-v-92c79dbc{
+	border-bottom: 1px solid #DBDBDB;
+}
+.xieyi_main.data-v-92c79dbc{
+	 width: 100%;
+	 padding: 10px;
+	 -webkit-box-sizing: border-box;
+	 box-sizing: border-box;
+	 font-size: 28rpx;
+	 color: #444;
+}
+ 
+

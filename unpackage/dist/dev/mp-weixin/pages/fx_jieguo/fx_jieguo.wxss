@@ -1,0 +1,116 @@
+
+.warp_box.data-v-c93db750{
+	height: 100vh;
+	background: -webkit-linear-gradient(315deg, #77A9FE, #7696F9);
+	background: linear-gradient(135deg, #77A9FE, #7696F9);
+}
+.fx_box.data-v-c93db750{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	        flex-direction: column;
+	width: 690rpx;
+	height: 100vh;
+	margin: 0 auto;
+}
+.fx_top.data-v-c93db750{
+	width: 100%;
+	height: 190rpx;
+	-webkit-box-flex:0;
+	-webkit-flex:none;
+	        flex:none;
+}
+.fx_bottom.data-v-c93db750{
+	width: 100%;
+	height: 100rpx;
+	-webkit-box-flex:0;
+	-webkit-flex:none;
+	        flex:none;
+}
+.fx_main.data-v-c93db750{
+	width: 100%;
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	        flex: 1;
+	position: relative;
+	background: #fff;
+	padding: 30rpx;
+}
+.fx_tit.data-v-c93db750{
+	height: 30rpx;
+	font-size: 30rpx;
+	line-height: 30rpx;
+	font-family: PingFang SC;
+	font-weight: 500;
+	color: #000000;
+	padding-left: 15rpx;
+	position: relative;
+	margin-bottom: 30rpx;
+}
+.fx_tit.data-v-c93db750::before{
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 4rpx;
+	height: 30rpx;
+	background: #77A7FD;
+}
+.fx_scroll.data-v-c93db750{
+	position: absolute;
+	width: 630rpx;
+	top: 90rpx;
+	left: 30rpx;
+	right: 30rpx;
+	bottom: 140rpx;
+	
+	font-size: 28rpx;
+	font-family: PingFang SC;
+	font-weight: 500;
+	color: #666666;
+}
+._br.data-v-c93db750{
+	height: 20rpx;
+}
+.go_btn.data-v-c93db750{
+	position: absolute;
+	bottom: 50rpx;
+	left: 50%;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	width: 516rpx;
+	height: 73rpx;
+	margin-left: -258rpx;
+	background: #30A1FF;
+	-webkit-box-shadow: 0px 0px 10rpx 0px rgba(0, 0, 0, 0.1);
+	        box-shadow: 0px 0px 10rpx 0px rgba(0, 0, 0, 0.1);
+	-webkit-border-radius: 37rpx;
+	        border-radius: 37rpx;
+	
+	font-size: 30rpx;
+	font-family: PingFang SC;
+	font-weight: 500;
+	color: #FFFFFF;
+}
+.go_tip.data-v-c93db750{
+	position: absolute;
+	bottom: 10rpx;
+	left: 0;
+	right: 0;
+	text-align: center;
+	font-size: 20rpx;
+	font-family: PingFang SC;
+	font-weight: 500;
+	color: #ACACAC;
+}
+

@@ -1,0 +1,42 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/my/my",
+    "pages/about/about",
+    "pages/login/login",
+    "pages/my_msg/my_msg",
+    "pages/fx_jieguo/fx_jieguo",
+    "pages/wenquan_list/wenquan_list",
+    "pages/dati/dati",
+    "pages/video/video"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "心理咨询",
+    "navigationBarBackgroundColor": "#fff",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "color": "#C4C9D5",
+    "selectedColor": "#5373FF",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "static/images/tabbar/tab1.png",
+        "selectedIconPath": "static/images/tabbar/tab12.png"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "text": "我的",
+        "iconPath": "static/images/tabbar/tab2.png",
+        "selectedIconPath": "static/images/tabbar/tab22.png"
+      }
+    ]
+  },
+  "usingComponents": {
+    "cu-custom": "/colorui/components/cu-custom"
+  }
+}

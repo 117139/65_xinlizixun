@@ -1,0 +1,1 @@
+{"version":3,"sources":["uni-app:///main.js"],"names":["createPage","Page"],"mappings":";;;;;;;;;;kDAAA;AACA;AACA,iH;AACAA,UAAU,CAACC,qBAAD,CAAV,C","file":"pages/fabu_duoxuan/fabu_duoxuan.js","sourcesContent":["import 'uni-pages';\nimport Vue from 'vue'\nimport Page from './pages/fabu_duoxuan/fabu_duoxuan.vue'\ncreatePage(Page)"],"sourceRoot":""}

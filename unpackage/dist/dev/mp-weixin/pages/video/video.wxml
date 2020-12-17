@@ -1,0 +1,1 @@
+<view><video src="{{src}}" show-center-play-btn="{{true}}" enable-play-gesture="{{true}}"></video></view>
