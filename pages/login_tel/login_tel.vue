@@ -11,6 +11,7 @@
 				绑定手机号
 			</button>
 		</view>
+		<view class="dis_flex aic ju_c login_btn" @tap="goback()">返回</view>
 	</view>
 </template>
 

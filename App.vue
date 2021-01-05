@@ -16,7 +16,7 @@
 			var that =this
 			console.log('App Launch')
 			// #ifdef MP-WEIXIN
-			// service.wxlogin()
+			service.wxlogin()
 			// #endif
 			uni.getSystemInfo({
 				success: function(e) {
@@ -172,5 +172,28 @@
 		width: 480upx;
 		height: 480upx;
 		margin-top: 260upx;
+	}
+	
+	.xmfwb_box image,.xmfwb_box img,.xmfwb_box table,
+	rich-text p,rich-text img,rich-text table{
+		max-width: 100%!important;
+	}
+	.xcx_fwb_img{
+		max-width: 100%!important;
+	}
+	.loading_def{
+		position: fixed;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		left: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: #fff;
+	}
+	.loading_def_img{
+		width: 200rpx!important;
+		height: 200rpx!important
 	}
 </style>

@@ -4,8 +4,8 @@ import event from 'common/event.js'
 // 管理账号信息
 const USERS_KEY = 'USERS_KEY';
 const STATE_KEY = 'STATE_KEY';
-const IPurl = 'https://datixcx.com.aa.800123456.top/api/';
-const imgurl = 'https://datixcx.com.aa.800123456.top/';
+const imgurl = 'https://xlx.com.aa.800123456.top/';
+const IPurl = imgurl+'/api/';
 // const adminurl='https://datixcx.com.aa.800123456.top/admin/';
 // appid:wx4c41cc50c5a53df9
 // appid:wx49a560f7feac0feb   cj
@@ -219,12 +219,12 @@ const wxlogin=function (num){
 	                let data = {
 	                  code: res.code,
 	                  nickname: uinfo.nickName,
-	                  avatarurl: uinfo.avatarUrl
+	                  avatar: uinfo.avatarUrl
 	                }
 	                let rcode = res.code
 	                console.log(res.code)
 	                uni.request({
-	                  url: IPurl+'/login',
+	                  url: IPurl+'/login/login',
 	                  data: data,
 	                  header: {
 	                    'content-type': 'application/x-www-form-urlencoded'
@@ -536,6 +536,8 @@ const gettime=function (mj){
 	n_date=n_date<10? '0'+n_date:n_date
 	n_hour=n_hour<10? '0'+n_hour:n_hour
 	n_minute=n_minute<10? '0'+n_minute:n_minute
+	var new_times=n_year+'-'+n_month+'-'+n_date+' '+n_hour+':'+n_minute
+	return new_times
 	if(n_year==year){
 		
 		return {

@@ -5,26 +5,25 @@
 		<view class="head_box" :class="{'cur_H':PageScroll>5}" :style="style">
 			心理咨询
 		</view>
-		
+
 		<view class="list_box dis_flex_c" :style="style1">
 			<scroll-view class="flex_1" scroll-y="true" refresher-enabled='true' :refresher-triggered="triggered"
 			 :refresher-threshold="100" @refresherpulling="onPulling" @refresherrefresh="onRefresh" @refresherrestore="onRestore"
 			 @refresherabort="onAbort" @scrolltolower="getdata">
 				<view class="scroll_nbox">
-					<view class="i_li dis_flex aift" v-for="item in datas" @tap="jump" :data-login='login_kg' :data-haslogin='hasLogin'
-					 :data-url="'/pages/dati/dati?id='+item.id">
-						<view class="i_li_l" @tap="jump" :data-url="'/pages/video/video?src='+item.src">
+					<view class="i_li dis_flex aift" v-for="item in datas" >
+						<view class="i_li_l" @tap="jump" :data-url="'/pages/video/video?cover='+item.pic+'&src='+item.video_path">
 							<!-- <image class="i_li_l_img1" :src="getimg(item.img)" lazy-load="true" mode="aspectFill"></image> -->
-							<image class="i_li_l_img1" :src="item.img" lazy-load="true" mode="aspectFill"></image>
+							<image class="i_li_l_img1" :src="getimg(item.pic)" lazy-load="true" mode="aspectFill"></image>
 							<image class="i_li_l_img2" src="../../static/images/play_btn.png" mode="aspectFill"></image>
 						</view>
 						<view class="i_li_msg">
-							<view class="d1">上传日期：{{item.time}}</view>
-							<view class="d2">分析状态：<text class="d21" v-if="item.type==1">已分析</text><text class="d22" v-if="item.type==2">分析中</text></view>
+							<view class="d1">上传日期：{{item.create_time}}</view>
+							<view class="d2">分析状态：<text class="d21" v-if="item.status==1">已分析</text><text class="d22" v-else>未分析</text></view>
 							<view class="d2">问卷调查：<text>{{item.num}}</text>份</view>
 							<view class="d2 dis_flex aic ju_b">
-								<view class="index_btn" @tap="jump" data-url="/pages/fx_jieguo/fx_jieguo?type=1">视频分析</view>
-								<view class="index_btn index_btn1" @tap="jump" data-url="/pages/wenquan_list/wenquan_list">问卷分析</view>
+								<view  v-if="item.status==1" class="index_btn" @tap="jump" :data-url="'/pages/fx_jieguo/fx_jieguo?type=1&id='+item.id+'&video_id='+item.id">视频分析</view>
+								<view  v-if="item.status==1" class="index_btn index_btn1" @tap="jump" :data-url="'/pages/wenquan_list/wenquan_list?video_id='+item.id">问卷分析</view>
 							</view>
 						</view>
 					</view>
@@ -38,7 +37,7 @@
 			</scroll-view>
 
 		</view>
-		<image  @tap="fabu_fuc" data-url="/pages/order/order" class="xiandan" src="../../static/images/fabu_btn.png"></image>
+		<image @tap="fabu_fuc" data-url="/pages/order/order" class="xiandan" src="../../static/images/fabu_btn.png"></image>
 		<view v-if="show_tk" class="tk_big_box dis_flex aic ju_c">
 			<view class="dis_flex_c aic ju_c">
 				<view class="dis_flex_c tk_box">
@@ -55,12 +54,13 @@
 </template>
 
 <script>
+	import Vue from 'vue'
 	import service from '../../service.js';
 	import {
 		mapState,
 		mapMutations
 	} from 'vuex'
-
+	var that
 	export default {
 		data() {
 			return {
@@ -72,50 +72,50 @@
 				time_zz: '你好',
 				StatusBar: this.StatusBar,
 				CustomBar: this.CustomBar,
-				datas: [
-					{
-						img:'../../static/images/index_03.jpg',
-						time:'2020-09-01 20:20',
-						type:1,
-						num:2,
-						id:1,
-						src:'http://www.wanbonet.com/suxin/images/mp4.mp4'
+				datas: [],
+				datas1: [{
+						img: '../../static/images/index_03.jpg',
+						time: '2020-09-01 20:20',
+						type: 1,
+						num: 2,
+						id: 1,
+						src: 'http://www.wanbonet.com/suxin/images/mp4.mp4'
 					},
 					{
-						img:'../../static/images/index_06.jpg',
-						time:'2020-09-01 20:20',
-						type:1,
-						num:2,
-						id:1,
-						src:'http://www.wanbonet.com/suxin/images/mp4.mp4'
-					
+						img: '../../static/images/index_06.jpg',
+						time: '2020-09-01 20:20',
+						type: 1,
+						num: 2,
+						id: 1,
+						src: 'http://www.wanbonet.com/suxin/images/mp4.mp4'
+
 					},
 					{
-						img:'../../static/images/index_08.jpg',
-						time:'2020-09-01 20:20',
-						type:2,
-						num:0,
-						id:1,
-						src:'http://www.wanbonet.com/suxin/images/mp4.mp4'
+						img: '../../static/images/index_08.jpg',
+						time: '2020-09-01 20:20',
+						type: 2,
+						num: 0,
+						id: 1,
+						src: 'http://www.wanbonet.com/suxin/images/mp4.mp4'
 					},
 					{
-						img:'../../static/images/index_03.jpg',
-						time:'2020-09-01 20:20',
-						type:2,
-						num:0,
-						id:1,
-						src:'https://tb-video.bdstatic.com/tieba-smallvideo-transcode-cae/20013224_853bd96109a3af682b1c97d9da8ee5ef_0_cae.mp4?vt=1&pt=3&cr=3&cd=3&sid=&ft=2&tbau=2020-12-16_911f9f26f2c29f2e2c899690f33b93c33e67771f1a90696c7dcf1ff512a5d838'
+						img: '../../static/images/index_03.jpg',
+						time: '2020-09-01 20:20',
+						type: 2,
+						num: 0,
+						id: 1,
+						src: 'https://tb-video.bdstatic.com/tieba-smallvideo-transcode-cae/20013224_853bd96109a3af682b1c97d9da8ee5ef_0_cae.mp4?vt=1&pt=3&cr=3&cd=3&sid=&ft=2&tbau=2020-12-16_911f9f26f2c29f2e2c899690f33b93c33e67771f1a90696c7dcf1ff512a5d838'
 					},
 					{
-						img:'../../static/images/index_06.jpg',
-						time:'2020-09-01 20:20',
-						type:2,
-						num:0,
-						id:1,
-						src:'https://tb-video.bdstatic.com/tieba-smallvideo-transcode-cae/20013224_853bd96109a3af682b1c97d9da8ee5ef_0_cae.mp4?vt=1&pt=3&cr=3&cd=3&sid=&ft=2&tbau=2020-12-16_911f9f26f2c29f2e2c899690f33b93c33e67771f1a90696c7dcf1ff512a5d838'
+						img: '../../static/images/index_06.jpg',
+						time: '2020-09-01 20:20',
+						type: 2,
+						num: 0,
+						id: 1,
+						src: 'https://tb-video.bdstatic.com/tieba-smallvideo-transcode-cae/20013224_853bd96109a3af682b1c97d9da8ee5ef_0_cae.mp4?vt=1&pt=3&cr=3&cd=3&sid=&ft=2&tbau=2020-12-16_911f9f26f2c29f2e2c899690f33b93c33e67771f1a90696c7dcf1ff512a5d838'
 					},
 				],
-				
+
 				PageScroll: '',
 				page: 1,
 				size: 15,
@@ -124,45 +124,48 @@
 				triggered: true, //设置当前下拉刷新状态
 				data_last: false,
 				login_kg: false,
-				
-				
-				
-				show_tk:false
+
+
+
+				show_tk: false
 			};
 		},
 		watch: {
-			hasLogin() {
-				var that =this
-				this.btn_kg = 0
-				this.onRetry()
-				wx.getSetting({
-					withSubscriptions:true,
-				  success (res) {
-				    console.log('res.authSetting')
-				    console.log(res)
-				    console.log(res.authSetting)
-						var itemSettings = res.subscriptionsSetting.itemSettings
-						console.log('itemSettings')
-						console.log(itemSettings)
-						/*if (itemSettings) {
-							 if (itemSettings['-I6lIPrxg8bcr5AdAUtzPuksKa9hodpyD58cKPHfR8I'] === 'accept') {
-								 console.log('is accredit：ok')
-							 }else{
+			hasLogin(newval, oldval) {
+				var that = this
+				that.btn_kg = 0
+				if (newval) {
+					that.onRetry()
+					wx.getSetting({
+						withSubscriptions: true,
+						success(res) {
+							console.log('res.authSetting')
+							console.log(res)
+							console.log(res.authSetting)
+							var itemSettings = res.subscriptionsSetting.itemSettings
+							console.log('itemSettings')
+							console.log(itemSettings)
+							/*if (itemSettings) {
+								 if (itemSettings['-I6lIPrxg8bcr5AdAUtzPuksKa9hodpyD58cKPHfR8I'] === 'accept') {
+									 console.log('is accredit：ok')
+								 }else{
+									 that.show_tk=true
+								 }
+							}else{
 								 that.show_tk=true
-							 }
-						}else{
-							 that.show_tk=true
-						}*/
-				    
-				  }
-				})
+							}*/
+
+						}
+					})
+				}
+
 			}
 		},
 		onLoad() {
 			var yhxy = uni.getStorageSync('yhxy')
-		
+			that = this
 			this._freshing = false;
-			this.onRetry()
+			// this.onRetry()
 		},
 		onPageScroll(e) {
 			console.log(e)
@@ -206,64 +209,171 @@
 		},
 		methods: {
 			...mapMutations(['login', 'logindata', 'logout', 'setplatform', 'setfj_data']),
-			fabu_fuc(){
-				uni.chooseVideo({
-						count: 1,
-						sourceType: ['camera', 'album'],
-						compressed:true,
-						maxDuration:'15',
-						success: function (res) {
-								var src = res.tempFilePath;
-								console.log(src)
-								uni.showLoading({
-									mask:true,
-									title:'正在上传视频'
-								})
-								setTimeout(()=>{
-									uni.hideLoading()
-									uni.showToast({
-										icon:'none',
-										title:'上传成功'
-									})
-								},4000)
+			fabu_fuc() {
+				uni.showActionSheet({
+					itemList: ['拍摄', '相册'],
+					success: function(res) {
+						console.log('选中了第' + (res.tapIndex + 1) + '个按钮');
+						var sourceType = ['camera', 'album']
+						if (res.tapIndex == 0) {
+							sourceType = ['camera']
+						} else {
+							sourceType = ['album']
 						}
+						uni.chooseMedia({
+							count: 1,
+							sourceType: sourceType,
+							mediaType:['video'],
+							compressed: true,
+							maxDuration: '15',
+							success: function(res) {
+								var src = res.tempFiles[0].tempFilePath;
+								var src_temp = res.tempFiles[0].thumbTempFilePath;
+								console.log(res)
+								console.log(src)
+								console.log(src_temp)
+								Vue.set(that.datas[0],'pic1',src_temp)
+								// return
+								if (that.btn_kg == 1) {
+									return
+								}
+								that.btn_kg = 1
+								uni.showLoading({
+									mask: true,
+									title: '正在获取视频封面'
+								})
+								uni.uploadFile({
+									url: service.IPurl + '/upload', //仅为示例，非真实的接口地址
+									filePath: src_temp,
+									name: 'file',
+									formData: {
+										token: that.loginDatas.token,
+										type: 1
+									},
+									success: (uploadFileRes) => {
+										console.log(uploadFileRes.data);
+										var ndata_temp = JSON.parse(uploadFileRes.data)
+										uni.hideLoading()
+										uni.showLoading({
+											mask: true,
+											title: '正在上传视频'
+										})
+										uni.uploadFile({
+											url: service.IPurl + '/upload', //仅为示例，非真实的接口地址
+											filePath: src,
+											name: 'file',
+											formData: {
+												token: that.loginDatas.token,
+												type: 2
+											},
+											success: (uploadFileRes) => {
+												console.log(uploadFileRes.data);
+												var ndata = JSON.parse(uploadFileRes.data)
+												var datas = {
+													token: that.loginDatas.token || '',
+													pic: ndata_temp.data,
+													video: ndata.data,
+												}
+												
+												//selectSaraylDetailByUserCard
+												var jkurl = '/issue/save'
+												uni.showLoading({
+													title: '正在上传数据'
+												})
+												service.P_post(jkurl, datas).then(res => {
+													that.btn_kg = 0
+													console.log(res)
+													if (res.code == 1) {
+														var datas = res.data
+														console.log(typeof datas)
+												
+														if (typeof datas == 'string') {
+															datas = JSON.parse(datas)
+														}
+														uni.showToast({
+															icon: 'none',
+															title: '上传成功'
+														})
+														that.onRetry()
+												
+													} else {
+														if (res.msg) {
+															uni.showToast({
+																icon: 'none',
+																title: res.msg
+															})
+														} else {
+															uni.showToast({
+																icon: 'none',
+																title: '操作失败'
+															})
+														}
+													}
+												}).catch(e => {
+													that.btn_kg = 0
+													console.log(e)
+													uni.showToast({
+														icon: 'none',
+														title: '获取数据失败'
+													})
+												})
+												
+											}
+										});
+									}
+								});
+								// setTimeout(() => {
+								// 	uni.hideLoading()
+								// 	uni.showToast({
+								// 		icon: 'none',
+								// 		title: '上传成功'
+								// 	})
+								// }, 4000)
+							}
+						});
+					},
+					fail: function(res) {
+						console.log(res.errMsg);
+					}
 				});
+
+
 			},
 			authMsg(event) {
-				var that =this
+				var that = this
 				uni.requestSubscribeMessage({
 					tmplIds: ['-I6lIPrxg8bcr5AdAUtzPuksKa9hodpyD58cKPHfR8I'],
 					success: function(res) {
 						console.log(res)
-						that.show_tk=false
+						that.show_tk = false
 						uni.showToast({
-							icon:'none',
-							title:'订阅消息成功'
+							icon: 'none',
+							title: '订阅消息成功'
 						})
 					},
 					fail: function(err) {
 						console.log(err)
 						uni.showToast({
-							icon:'none',
-							title:'订阅消息失败'
+							icon: 'none',
+							title: '订阅消息失败'
 						})
 					}
 
 				})
 
 			},
-			authMsg_on(e){
-				var that =this
+			authMsg_on(e) {
+				var that = this
 				uni.showModal({
-						title: '温馨提示',
-						content: '拒绝后您将无法获取提示消息',
-						confirmText:"知道了",
-						showCancel:false,
-						success: function (res) {
-							///点击知道了的后续操作 
-							///如跳转首页面 
-							that.show_tk=false
-						}
+					title: '温馨提示',
+					content: '拒绝后您将无法获取提示消息',
+					confirmText: "知道了",
+					showCancel: false,
+					success: function(res) {
+						///点击知道了的后续操作 
+						///如跳转首页面 
+						that.show_tk = false
+					}
 				});
 			},
 			onPulling(e) {
@@ -271,77 +381,17 @@
 			},
 			onRefresh() {
 				var that = this
-				
+
 				if (this._freshing) return;
 				this._freshing = true;
-				
-				setTimeout(()=>{
-					this.triggered=false
-					this._freshing =false
-				},300)
-				
-				return
-				var datas = {
-					token: that.loginDatas.userToken,
-					page: 1,
-					size: that.size,
-					title: that.search_key,
-					sort: that.sort
-				}
-				if (that.btn_kg == 1) {
-					return
-				}
-				that.btn_kg = 1
-				//selectSaraylDetailByUserCard
-				var jkurl = '/'
-				uni.showLoading({
-					title: '正在获取数据'
-				})
-				service.P_get(jkurl, datas).then(res => {
+
+				setTimeout(() => {
 					this.triggered = false
 					this._freshing = false
-					that.btn_kg = 0
-					console.log(res)
-					if (res.code == 1) {
-						var datas = res.data
-						console.log(typeof datas)
+				}, 300)
 
-						if (typeof datas == 'string') {
-							datas = JSON.parse(datas)
-						}
-						console.log(datas)
-						if (res.resfj_data) {
-							that.setfj_data(res.resfj_data)
-						}
+				that.onRetry()
 
-						that.datas = datas
-
-						that.page = 2
-
-					} else {
-						if (res.msg) {
-							uni.showToast({
-								icon: 'none',
-								title: res.msg
-							})
-						} else {
-							uni.showToast({
-								icon: 'none',
-								title: '操作失败'
-							})
-						}
-					}
-				}).catch(e => {
-					this.triggered = false
-					this._freshing = false
-					that.btn_kg = 0
-					console.log(e)
-					uni.showToast({
-						icon: 'none',
-						title: '获取数据失败'
-					})
-				})
-				
 			},
 			onRestore() {
 				this.triggered = 'restore'; // 需要重置
@@ -361,37 +411,35 @@
 			},
 			onRetry() {
 				this.page = 1
+				this.data = []
 				this.data_last = false
 				this.getdata()
 			},
-		
+
 			getimg(img) {
 				return service.getimg(img)
 			},
 			getdata(num) {
 				var that = this
-				return
 				if (that.data_last) {
 					return
 				}
 				var datas = {
-					token: that.loginDatas.userToken || '',
+					token: that.loginDatas.token || '',
 					page: that.page,
 					size: that.size,
-					title: that.search_key,
-					sort: that.sort
 				}
 				if (this.btn_kg == 1) {
 					return
 				}
 				this.btn_kg = 1
 				//selectSaraylDetailByUserCard
-				var jkurl = '/'
+				var jkurl = '/issue/list'
 				uni.showLoading({
 					title: '正在获取数据'
 				})
 				var page_that = that.page
-				service.P_get(jkurl, datas).then(res => {
+				service.P_post(jkurl, datas).then(res => {
 					that.btn_kg = 0
 					console.log(res)
 					if (res.code == 1) {
@@ -401,25 +449,15 @@
 						if (typeof datas == 'string') {
 							datas = JSON.parse(datas)
 						}
-						console.log(res)
-						if (res.fj_data) {
-							that.setfj_data(res.fj_data)
-							if (res.fj_data.is_any_dy == 1) {
-								that.login_kg = true
-							} else if (res.fj_data.is_any_dy == 2) {
-								that.login_kg = false
-							}
-
-						}
 						if (page_that == 1) {
 
-							that.datas = datas
+							that.datas = datas.data
 						} else {
-							if (datas.length == 0) {
+							if (datas.data.length == 0) {
 								that.data_last = true
 								return
 							}
-							that.datas = that.datas.concat(datas)
+							that.datas = that.datas.concat(datas.data)
 						}
 						that.page++
 
@@ -574,20 +612,23 @@
 		padding: 20upx;
 		background: #FFF;
 	}
-	.tk_tit{
+
+	.tk_tit {
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		font-size: 24upx;
 		margin-bottom: 30upx;
 	}
-	.tk_msg{
+
+	.tk_msg {
 		font-size: 24upx;
 		margin-bottom: 20upx;
 		padding-bottom: 20upx;
 		border-bottom: 1px solid #ddd;
 	}
-	.dy_btn{
+
+	.dy_btn {
 		width: 150upx;
 		height: 60upx;
 		font-size: 24upx;
@@ -597,8 +638,10 @@
 		align-items: center;
 		justify-content: center;
 	}
-	.dy_btn1{
-		width: 152upx;height: 62upx;
+
+	.dy_btn1 {
+		width: 152upx;
+		height: 62upx;
 		background: linear-gradient(90deg, rgba(61, 127, 255, 0.91), rgba(60, 142, 255, 0.91));
 		color: #fff;
 		border: 0;
@@ -647,7 +690,7 @@
 
 
 
-	
+
 	.list_box {
 		position: fixed;
 		z-index: 1;
@@ -676,21 +719,25 @@
 		border-radius: 4upx;
 		padding: 15upx;
 		box-sizing: border-box;
-	/* }
+		/* }
 
 	.i_li+.i_li { */
 		margin-top: 32upx;
 	}
-	.i_li_l{
+
+	.i_li_l {
 		width: 173upx;
 		height: 227upx;
 		position: relative;
+		background-color: #000;
 	}
-	.i_li_l_img1{
+
+	.i_li_l_img1 {
 		width: 100%;
 		height: 100%;
 	}
-	.i_li_l_img2{
+
+	.i_li_l_img2 {
 		position: absolute;
 		top: 50%;
 		left: 50%;
@@ -700,30 +747,36 @@
 		margin-left: -22upx;
 		z-index: 9;
 	}
-	.i_li_msg{
+
+	.i_li_msg {
 		margin-left: 44upx;
 		width: 420upx;
 	}
-	.i_li_msg .d1{
+
+	.i_li_msg .d1 {
 		font-size: 30upx;
 		font-family: PingFang;
 		font-weight: bold;
 		color: #333333;
 	}
-	.i_li_msg .d2{
+
+	.i_li_msg .d2 {
 		font-size: 26upx;
 		font-family: PingFang SC;
 		font-weight: 500;
 		color: #333333;
 		margin-top: 20upx;
 	}
-	.i_li_msg .d2 .d21{
+
+	.i_li_msg .d2 .d21 {
 		color: #2E95F5;
 	}
-	.i_li_msg .d2 .d22{
+
+	.i_li_msg .d2 .d22 {
 		color: #FD8D8D;
 	}
-	.index_btn{
+
+	.index_btn {
 		width: 193upx;
 		height: 63upx;
 		background: rgba(0, 207, 161, .77);
@@ -736,10 +789,12 @@
 		font-weight: 500;
 		color: #FFFFFF;
 	}
-	.index_btn1{
+
+	.index_btn1 {
 		background: rgba(46, 149, 245, 1);
 	}
-	.xiandan{
+
+	.xiandan {
 		width: 111upx;
 		height: 111upx;
 		/* background: #30A1FF; */
@@ -748,9 +803,9 @@
 		position: fixed;
 		bottom: 50upx;
 		/* #ifndef MP-WEIXIN */
-		bottom:120upx;
+		bottom: 120upx;
 		/* #endif */
 		right: 30upx;
-		z-index:900;
+		z-index: 900;
 	}
 </style>

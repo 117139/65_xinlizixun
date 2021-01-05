@@ -4,7 +4,7 @@
 			<image class="loginbg" src="../../static/images/images/loginbg_02.jpg" mode=""></image>
 			
 		</view>
-		<view class="dis_flex aic ju_c login_tip">登录表示您同意<text @tap="jump" data-url="/pages/about/about?type=yszc">《法律声明和隐私权限》</text></view>
+		<view class="dis_flex aic ju_c login_tip">登录表示您同意<text @tap="jump" data-url="/pages/about/about?type=yszc">《法律声明和隐私政策》</text></view>
 		<view class="dis_flex aic ju_c login_btn">
 			<button class='bottom'  open-type="getUserInfo"
 			lang="zh_CN" @getuserinfo="getUserInfo">
@@ -12,6 +12,7 @@
 				微信用户一键登录
 			</button>
 		</view>
+		<view class="dis_flex aic ju_c goback_btn" @tap="goback()">返回</view>
 	</view>
 </template>
 
@@ -230,5 +231,13 @@
 		width: 53upx;
 		height: 43upx;
 		margin-right: 30upx;
+	}
+	.goback_btn{
+		width: 690upx;
+		height: 95upx;
+		margin: 30px auto;
+		background: #fff;
+		border-radius: 95upx;
+		border: 1px solid #eee;
 	}
 </style>

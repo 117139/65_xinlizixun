@@ -2,7 +2,7 @@
 	<view class="h_main" style="min-height: 100vh;background-color: #F6F7F9;">
 		<view class="mymsg_li dis_flex aic ju_b">
 			<view class="msg_l">头像</view>
-			<avatar stretch="short" inner="true" selWidth="400upx" selHeight="400upx" @upload="myUpload" :avatarSrc="getimg(loginDatas_data.img_url)"
+			<avatar stretch="short" inner="true" selWidth="400upx" selHeight="400upx" @upload="myUpload" :avatarSrc="getimg(loginDatas_data.avatar)"
 			 avatarStyle="width: 100upx; height: 100upx; border-radius: 100%;">
 			</avatar>
 		</view>
@@ -14,26 +14,27 @@
 			<picker mode="date" :value="date" :start="startDate" @change="bindDateChange">
 				<view class="mymsg_li dis_flex aic ju_b">
 					<view class="msg_l">生日</view>
-					<input class="msg_r" type="text" placeholder="请选择" disabled="true" v-model="loginDatas_data.age">
+					<!-- <input class="msg_r" type="text" placeholder="请选择" disabled="true" v-model="getBirthday(loginDatas_data.birthday)"> -->
+					<input class="msg_r" type="text" placeholder="请选择" disabled="true" v-model="loginDatas_data.birthday">
 				</view>
 			</picker>
 			<view class="mymsg_li dis_flex aic ju_b">
 				<view class="msg_l">部门</view>
-				<input class="msg_r" type="text" placeholder="请输入" v-model="loginDatas_data.bumen">
+				<input class="msg_r" type="text" placeholder="请输入" v-model="loginDatas_data.department">
 			</view>
 			<picker @change="bindPickerChange" :value="index" :range="array">
 				<view class="mymsg_li dis_flex aic ju_b">
 					<view class="msg_l">学历</view>
-					<input class="msg_r" type="text" placeholder="请选择" disabled="true" v-model="loginDatas_data.xueli">
+					<input class="msg_r" type="text" placeholder="请选择" disabled="true" v-model="loginDatas_data.education_background">
 				</view>
 			</picker>
 			<view class="mymsg_li dis_flex aic ju_b">
 				<view class="msg_l">籍贯</view>
-				<input class="msg_r" type="text" placeholder="请输入" v-model="loginDatas_data.jiguan">
+				<input class="msg_r" type="text" placeholder="请输入" v-model="loginDatas_data.native_place">
 			</view>
 			<view class="mymsg_li dis_flex aic ju_b">
 				<view class="msg_l">手机</view>
-				<input class="msg_r" type="number" placeholder="请输入" v-model="loginDatas_data.tel">
+				<input class="msg_r" type="number" placeholder="请输入" v-model="loginDatas_data.real_phone">
 			</view>
 			<view class="mymsg_li dis_flex aic ju_b">
 				<view class="msg_l">邮箱</view>
@@ -71,20 +72,7 @@
 				btn_kg: 0,
 				StatusBar: this.StatusBar,
 				CustomBar: this.CustomBar,
-				loginDatas_data: {
-					avatar: '',
-					tximg: '',
-					nickname: '',
-					real_name: '',
-					age: null,
-					bumen: '',
-					xueli: '',
-					jiguan: '',
-					tel: '',
-					email: '',
-					address: '',
-					region: []
-				},
+				loginDatas_data: {},
 				array: [
 					'初中及以下',
 					'高中/中专',
@@ -102,8 +90,8 @@
 		},
 		onLoad() {
 			var that = this
-			// this.loginDatas_data=JSON.parse(JSON.stringify(that.loginDatas))
-			Vue.set(that.loginDatas_data, 'img_url', that.loginDatas.img_url)
+			this.loginDatas_data=JSON.parse(JSON.stringify(that.loginDatas.userInfo))
+			// Vue.set(that.loginDatas_data, 'img_url', that.loginDatas.img_url)
 		},
 		computed: {
 			...mapState(['hasLogin', 'forcedLogin', 'userName', 'loginDatas']),
@@ -120,12 +108,12 @@
 			bindDateChange(e) {
 				var that = this
 				console.log(e.detail.value)
-				Vue.set(that.loginDatas_data, 'age', e.detail.value)
+				Vue.set(that.loginDatas_data, 'birthday', e.detail.value)
 			},
 			bindPickerChange(e) {
 				var that = this
 				console.log(e.detail.value)
-				Vue.set(that.loginDatas_data, 'xueli', that.array[e.detail.value])
+				Vue.set(that.loginDatas_data, 'education_background', that.array[e.detail.value])
 			},
 			getimg(img) {
 				return service.getimg(img)
@@ -146,6 +134,9 @@
 				region = loginDatas_data.region.split(',')
 				return region
 			},
+			getBirthday(time){
+				
+			},
 			sub() {
 				var that = this
 				if (!this.loginDatas_data.real_name) {
@@ -155,42 +146,42 @@
 					})
 					return
 				}
-				if (!this.loginDatas_data.age) {
+				if (!this.loginDatas_data.birthday) {
 					uni.showToast({
 						icon: 'none',
 						title: '请选择您的生日'
 					})
 					return
 				}
-				if (!this.loginDatas_data.bumen) {
+				if (!this.loginDatas_data.department) {
 					uni.showToast({
 						icon: 'none',
 						title: '请输入您的部门'
 					})
 					return
 				}
-				if (!this.loginDatas_data.xueli) {
+				if (!this.loginDatas_data.education_background) {
 					uni.showToast({
 						icon: 'none',
 						title: '请选择您的学历'
 					})
 					return
 				}
-				if (!this.loginDatas_data.jiguan) {
+				if (!this.loginDatas_data.native_place) {
 					uni.showToast({
 						icon: 'none',
 						title: '请输入您的籍贯'
 					})
 					return
 				}
-				if (!this.loginDatas_data.tel) {
+				if (!this.loginDatas_data.real_phone) {
 					uni.showToast({
 						icon: 'none',
 						title: '请输入您的手机'
 					})
 					return
 				}
-				if (this.loginDatas_data.tel == '' || !(/^1\d{10}$/.test(this.loginDatas_data.tel))) {
+				if (this.loginDatas_data.real_phone == '' || !(/^1\d{10}$/.test(this.loginDatas_data.real_phone))) {
 					wx.showToast({
 						icon: 'none',
 						title: '手机号有误'
@@ -211,50 +202,36 @@
 					})
 					return
 				}
-				
-				uni.showToast({
-					icon: 'none',
-					title: '操作成功'
-				})
-				setTimeout(() => {
-					uni.navigateBack({
-						delta: 1
-					})
-				}, 1000)
-				
-				return
-				var jkurl = '/user/amendInfo'
+				//my/setInfo
 				var datas = {
-					token: that.loginDatas.userToken || '',
+					token: that.loginDatas.token,
+					avatar: that.loginDatas_data.avatar,
 					real_name: that.loginDatas_data.real_name,
-					age: that.loginDatas_data.age,
-					bumen: that.loginDatas_data.bumen,
-					xueli: that.loginDatas_data.xueli,
-					jiguan: that.loginDatas_data.jiguan,
-					tel: that.loginDatas_data.tel,
+					birthday: that.loginDatas_data.birthday,
+					department: that.loginDatas_data.department,
+					education_background: that.loginDatas_data.education_background,
+					native_place: that.loginDatas_data.native_place,
+					phone: that.loginDatas_data.real_phone,
 					email: that.loginDatas_data.email,
 					address: that.loginDatas_data.address,
 				}
-				if (this.btn_kg == 1) {
-					return
-				}
-				this.btn_kg = 1
 				console.log(datas)
+				var jkurl = '/my/setInfo'
+				
 				service.P_post(jkurl, datas).then(res => {
+				
 					that.btn_kg = 0
 					console.log(res)
 					if (res.code == 1) {
 						var datas = res.data
 						console.log(typeof datas)
-
+				
 						if (typeof datas == 'string') {
 							datas = JSON.parse(datas)
 						}
-						console.log(res)
-
 						uni.showToast({
 							icon: 'none',
-							title: '操作成功'
+							title: '保存成功'
 						})
 						service.wxlogin()
 						setTimeout(() => {
@@ -262,8 +239,6 @@
 								delta: 1
 							})
 						}, 1000)
-
-
 					} else {
 						if (res.msg) {
 							uni.showToast({
@@ -282,9 +257,11 @@
 					console.log(e)
 					uni.showToast({
 						icon: 'none',
-						title: '获取数据失败'
+						title: '操作失败'
 					})
 				})
+				
+			
 
 
 			},
@@ -294,17 +271,18 @@
 				// Vue.set(that.loginDatas_data,'avatarurl',tximg)
 				// return
 				uni.uploadFile({
-					url: service.IPurl + '/upload/streamImg', //仅为示例，非真实的接口地址
+					url: service.IPurl + '/upload', //仅为示例，非真实的接口地址
 					filePath: tximg,
 					name: 'file',
 					formData: {
-						token: that.loginDatas.userToken
+						token: that.loginDatas.token,
+						type:1
 					},
 					success: (uploadFileRes) => {
 						console.log(uploadFileRes.data);
 						var ndata = JSON.parse(uploadFileRes.data)
 						if (ndata.code == 1) {
-							Vue.set(that.loginDatas_data, 'avatarurl', ndata.msg)
+							Vue.set(that.loginDatas_data, 'avatar', ndata.data)
 
 						}
 					}
