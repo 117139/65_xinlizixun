@@ -37,7 +37,7 @@
 			</scroll-view>
 
 		</view>
-		<image @tap="fabu_fuc" data-url="/pages/order/order" class="xiandan" src="../../static/images/fabu_btn.png"></image>
+		<image v-if="hasLogin" @tap="fabu_fuc" data-url="/pages/order/order" class="xiandan" src="../../static/images/fabu_btn.png"></image>
 		<view v-if="show_tk" class="tk_big_box dis_flex aic ju_c">
 			<view class="dis_flex_c aic ju_c">
 				<view class="dis_flex_c tk_box">
@@ -225,14 +225,14 @@
 							sourceType: sourceType,
 							mediaType:['video'],
 							compressed: true,
-							maxDuration: '15',
+							maxDuration: '60',
 							success: function(res) {
 								var src = res.tempFiles[0].tempFilePath;
 								var src_temp = res.tempFiles[0].thumbTempFilePath;
 								console.log(res)
 								console.log(src)
 								console.log(src_temp)
-								Vue.set(that.datas[0],'pic1',src_temp)
+								// Vue.set(that.datas[0],'pic1',src_temp)
 								// return
 								if (that.btn_kg == 1) {
 									return

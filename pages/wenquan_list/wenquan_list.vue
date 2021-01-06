@@ -30,7 +30,8 @@
 						</view>
 					</block>
 					<block v-if="type==1">
-						<view  v-if="item.take==1" class="wq_li"  @tap="jump" :data-url="'/pages/fx_jieguo/fx_jieguo?id='+item.id+'&video_id='+video_id">
+						<!-- <view  v-if="item.take==1" class="wq_li"  @tap="jump" :data-url="'/pages/fx_jieguo/fx_jieguo?id='+item.id+'&video_id='+video_id"> -->
+						<view  v-if="item.take==1" class="wq_li" @tap='join_tip'>
 							<view class="wq_L">
 								<view class="oh2 wq_tit">{{item.title}}</view>
 								<view class="wq_type">
@@ -97,6 +98,12 @@
 			this.getdata()
 		},
 		methods: {
+			join_tip(){
+				uni.showToast({
+					icon:'none',
+					title:'已参与过该调查'
+				})
+			},
 			onRetry() {
 				this.page = 1
 				this.data_last = false
