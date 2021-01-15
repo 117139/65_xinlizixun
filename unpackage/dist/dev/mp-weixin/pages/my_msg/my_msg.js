@@ -97,7 +97,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  var m0 = _vm.getimg(_vm.loginDatas_data.img_url)
+  var m0 = _vm.getimg(_vm.loginDatas_data.avatar)
   _vm.$mp.data = Object.assign(
     {},
     {
@@ -199,10 +199,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
 
 var _service = _interopRequireDefault(__webpack_require__(/*! ../../service.js */ 8));
-var _vuex = __webpack_require__(/*! vuex */ 10);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var avatar = function avatar() {Promise.all(/*! require.ensure | components/yq-avatar/yq-avatar */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/yq-avatar/yq-avatar")]).then((function () {return resolve(__webpack_require__(/*! ../../components/yq-avatar/yq-avatar.vue */ 85));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+var _vuex = __webpack_require__(/*! vuex */ 10);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var avatar = function avatar() {Promise.all(/*! require.ensure | components/yq-avatar/yq-avatar */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/yq-avatar/yq-avatar")]).then((function () {return resolve(__webpack_require__(/*! ../../components/yq-avatar/yq-avatar.vue */ 93));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
 
@@ -212,20 +213,7 @@ var _vuex = __webpack_require__(/*! vuex */ 10);function _interopRequireDefault(
       btn_kg: 0,
       StatusBar: this.StatusBar,
       CustomBar: this.CustomBar,
-      loginDatas_data: {
-        avatar: '',
-        tximg: '',
-        nickname: '',
-        real_name: '',
-        age: null,
-        bumen: '',
-        xueli: '',
-        jiguan: '',
-        tel: '',
-        email: '',
-        address: '',
-        region: [] },
-
+      loginDatas_data: {},
       array: [
       '初中及以下',
       '高中/中专',
@@ -243,8 +231,8 @@ var _vuex = __webpack_require__(/*! vuex */ 10);function _interopRequireDefault(
 
   onLoad: function onLoad() {
     var that = this;
-    // this.loginDatas_data=JSON.parse(JSON.stringify(that.loginDatas))
-    _vue.default.set(that.loginDatas_data, 'img_url', that.loginDatas.img_url);
+    this.loginDatas_data = JSON.parse(JSON.stringify(that.loginDatas.userInfo));
+    // Vue.set(that.loginDatas_data, 'img_url', that.loginDatas.img_url)
   },
   computed: _objectSpread(_objectSpread({},
   (0, _vuex.mapState)(['hasLogin', 'forcedLogin', 'userName', 'loginDatas'])), {}, {
@@ -261,12 +249,12 @@ var _vuex = __webpack_require__(/*! vuex */ 10);function _interopRequireDefault(
     bindDateChange: function bindDateChange(e) {
       var that = this;
       console.log(e.detail.value);
-      _vue.default.set(that.loginDatas_data, 'age', e.detail.value);
+      _vue.default.set(that.loginDatas_data, 'birthday', e.detail.value);
     },
     bindPickerChange: function bindPickerChange(e) {
       var that = this;
       console.log(e.detail.value);
-      _vue.default.set(that.loginDatas_data, 'xueli', that.array[e.detail.value]);
+      _vue.default.set(that.loginDatas_data, 'education_background', that.array[e.detail.value]);
     },
     getimg: function getimg(img) {
       return _service.default.getimg(img);
@@ -287,6 +275,9 @@ var _vuex = __webpack_require__(/*! vuex */ 10);function _interopRequireDefault(
       region = loginDatas_data.region.split(',');
       return region;
     },
+    getBirthday: function getBirthday(time) {
+
+    },
     sub: function sub() {
       var that = this;
       if (!this.loginDatas_data.real_name) {
@@ -296,42 +287,42 @@ var _vuex = __webpack_require__(/*! vuex */ 10);function _interopRequireDefault(
 
         return;
       }
-      if (!this.loginDatas_data.age) {
+      if (!this.loginDatas_data.birthday) {
         uni.showToast({
           icon: 'none',
           title: '请选择您的生日' });
 
         return;
       }
-      if (!this.loginDatas_data.bumen) {
+      if (!this.loginDatas_data.department) {
         uni.showToast({
           icon: 'none',
           title: '请输入您的部门' });
 
         return;
       }
-      if (!this.loginDatas_data.xueli) {
+      if (!this.loginDatas_data.education_background) {
         uni.showToast({
           icon: 'none',
           title: '请选择您的学历' });
 
         return;
       }
-      if (!this.loginDatas_data.jiguan) {
+      if (!this.loginDatas_data.native_place) {
         uni.showToast({
           icon: 'none',
           title: '请输入您的籍贯' });
 
         return;
       }
-      if (!this.loginDatas_data.tel) {
+      if (!this.loginDatas_data.real_phone) {
         uni.showToast({
           icon: 'none',
           title: '请输入您的手机' });
 
         return;
       }
-      if (this.loginDatas_data.tel == '' || !/^1\d{10}$/.test(this.loginDatas_data.tel)) {
+      if (this.loginDatas_data.real_phone == '' || !/^1\d{10}$/.test(this.loginDatas_data.real_phone)) {
         wx.showToast({
           icon: 'none',
           title: '手机号有误' });
@@ -352,36 +343,24 @@ var _vuex = __webpack_require__(/*! vuex */ 10);function _interopRequireDefault(
 
         return;
       }
-
-      uni.showToast({
-        icon: 'none',
-        title: '操作成功' });
-
-      setTimeout(function () {
-        uni.navigateBack({
-          delta: 1 });
-
-      }, 1000);
-
-      return;
-      var jkurl = '/user/amendInfo';
+      //my/setInfo
       var datas = {
-        token: that.loginDatas.userToken || '',
+        token: that.loginDatas.token,
+        avatar: that.loginDatas_data.avatar,
         real_name: that.loginDatas_data.real_name,
-        age: that.loginDatas_data.age,
-        bumen: that.loginDatas_data.bumen,
-        xueli: that.loginDatas_data.xueli,
-        jiguan: that.loginDatas_data.jiguan,
-        tel: that.loginDatas_data.tel,
+        birthday: that.loginDatas_data.birthday,
+        department: that.loginDatas_data.department,
+        education_background: that.loginDatas_data.education_background,
+        native_place: that.loginDatas_data.native_place,
+        phone: that.loginDatas_data.real_phone,
         email: that.loginDatas_data.email,
         address: that.loginDatas_data.address };
 
-      if (this.btn_kg == 1) {
-        return;
-      }
-      this.btn_kg = 1;
       console.log(datas);
+      var jkurl = '/my/setInfo';
+
       _service.default.P_post(jkurl, datas).then(function (res) {
+
         that.btn_kg = 0;
         console.log(res);
         if (res.code == 1) {
@@ -391,11 +370,9 @@ var _vuex = __webpack_require__(/*! vuex */ 10);function _interopRequireDefault(
           if (typeof datas == 'string') {
             datas = JSON.parse(datas);
           }
-          console.log(res);
-
           uni.showToast({
             icon: 'none',
-            title: '操作成功' });
+            title: '保存成功' });
 
           _service.default.wxlogin();
           setTimeout(function () {
@@ -403,8 +380,6 @@ var _vuex = __webpack_require__(/*! vuex */ 10);function _interopRequireDefault(
               delta: 1 });
 
           }, 1000);
-
-
         } else {
           if (res.msg) {
             uni.showToast({
@@ -423,9 +398,11 @@ var _vuex = __webpack_require__(/*! vuex */ 10);function _interopRequireDefault(
         console.log(e);
         uni.showToast({
           icon: 'none',
-          title: '获取数据失败' });
+          title: '操作失败' });
 
       });
+
+
 
 
     },
@@ -435,17 +412,18 @@ var _vuex = __webpack_require__(/*! vuex */ 10);function _interopRequireDefault(
       // Vue.set(that.loginDatas_data,'avatarurl',tximg)
       // return
       uni.uploadFile({
-        url: _service.default.IPurl + '/upload/streamImg', //仅为示例，非真实的接口地址
+        url: _service.default.IPurl + '/upload', //仅为示例，非真实的接口地址
         filePath: tximg,
         name: 'file',
         formData: {
-          token: that.loginDatas.userToken },
+          token: that.loginDatas.token,
+          type: 1 },
 
         success: function success(uploadFileRes) {
           console.log(uploadFileRes.data);
           var ndata = JSON.parse(uploadFileRes.data);
           if (ndata.code == 1) {
-            _vue.default.set(that.loginDatas_data, 'avatarurl', ndata.msg);
+            _vue.default.set(that.loginDatas_data, 'avatar', ndata.data);
 
           }
         } });

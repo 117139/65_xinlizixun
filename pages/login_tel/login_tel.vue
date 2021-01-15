@@ -223,4 +223,12 @@
 		height: 43upx;
 		margin-right: 30upx;
 	}
+	.goback_btn{
+		width: 690upx;
+		height: 95upx;
+		margin: 30px auto;
+		background: #fff;
+		border-radius: 95upx;
+		border: 1px solid #eee;
+	}
 </style>

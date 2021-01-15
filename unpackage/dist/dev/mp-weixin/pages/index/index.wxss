@@ -13,7 +13,7 @@
 	padding: 20rpx;
 	background: #FFF;
 }
-.tk_tit.data-v-57280228{
+.tk_tit.data-v-57280228 {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
@@ -26,13 +26,13 @@
 	font-size: 24rpx;
 	margin-bottom: 30rpx;
 }
-.tk_msg.data-v-57280228{
+.tk_msg.data-v-57280228 {
 	font-size: 24rpx;
 	margin-bottom: 20rpx;
 	padding-bottom: 20rpx;
 	border-bottom: 1px solid #ddd;
 }
-.dy_btn.data-v-57280228{
+.dy_btn.data-v-57280228 {
 	width: 150rpx;
 	height: 60rpx;
 	font-size: 24rpx;
@@ -48,9 +48,9 @@
 	-webkit-justify-content: center;
 	        justify-content: center;
 }
-.dy_btn1.data-v-57280228{
-	width: 152rpx;height: 62rpx;
-	background: -webkit-gradient(linear, left top, right top, from(rgba(61, 127, 255, 0.91)), to(rgba(60, 142, 255, 0.91)));
+.dy_btn1.data-v-57280228 {
+	width: 152rpx;
+	height: 62rpx;
 	background: -webkit-linear-gradient(left, rgba(61, 127, 255, 0.91), rgba(60, 142, 255, 0.91));
 	background: linear-gradient(90deg, rgba(61, 127, 255, 0.91), rgba(60, 142, 255, 0.91));
 	color: #fff;
@@ -59,8 +59,7 @@
 .content_wrap.data-v-57280228 {
 	position: relative;
 	min-height: 100vh;
-	-webkit-box-sizing: border-box;
-	        box-sizing: border-box;
+	box-sizing: border-box;
 }
 .cu_custom_box.data-v-57280228 {
 	z-index: 800;
@@ -92,8 +91,7 @@
 	-webkit-box-pack: center;
 	-webkit-justify-content: center;
 	        justify-content: center;
-	-webkit-box-sizing: border-box;
-	        box-sizing: border-box;
+	box-sizing: border-box;
 	-webkit-transition: all .5s;
 	transition: all .5s;
 }
@@ -104,8 +102,7 @@
 .list_box.data-v-57280228 {
 	position: fixed;
 	z-index: 1;
-	-webkit-box-sizing: border-box;
-	        box-sizing: border-box;
+	box-sizing: border-box;
 
 	width: 100%;
 	/* height: 100%; */
@@ -117,35 +114,32 @@
 .scroll_nbox.data-v-57280228 {
 	width: 100%;
 	padding: 30rpx;
-	-webkit-box-sizing: border-box;
-	        box-sizing: border-box;
+	box-sizing: border-box;
 }
 .i_li.data-v-57280228 {
 	width: 100%;
 	min-height: 259rpx;
 	background: #FFFFFF;
-	-webkit-box-shadow: 0px 0px 10rpx 0rpx rgba(49, 49, 49, 0.1);
-	        box-shadow: 0px 0px 10rpx 0rpx rgba(49, 49, 49, 0.1);
-	-webkit-border-radius: 4rpx;
-	        border-radius: 4rpx;
+	box-shadow: 0px 0px 10rpx 0rpx rgba(49, 49, 49, 0.1);
+	border-radius: 4rpx;
 	padding: 15rpx;
-	-webkit-box-sizing: border-box;
-	        box-sizing: border-box;
-/* }
+	box-sizing: border-box;
+	/* }
 
 .i_li+.i_li { */
 	margin-top: 32rpx;
 }
-.i_li_l.data-v-57280228{
+.i_li_l.data-v-57280228 {
 	width: 173rpx;
 	height: 227rpx;
 	position: relative;
+	background-color: #000;
 }
-.i_li_l_img1.data-v-57280228{
+.i_li_l_img1.data-v-57280228 {
 	width: 100%;
 	height: 100%;
 }
-.i_li_l_img2.data-v-57280228{
+.i_li_l_img2.data-v-57280228 {
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -155,35 +149,34 @@
 	margin-left: -22rpx;
 	z-index: 9;
 }
-.i_li_msg.data-v-57280228{
+.i_li_msg.data-v-57280228 {
 	margin-left: 44rpx;
 	width: 420rpx;
 }
-.i_li_msg .d1.data-v-57280228{
+.i_li_msg .d1.data-v-57280228 {
 	font-size: 30rpx;
 	font-family: PingFang;
 	font-weight: bold;
 	color: #333333;
 }
-.i_li_msg .d2.data-v-57280228{
+.i_li_msg .d2.data-v-57280228 {
 	font-size: 26rpx;
 	font-family: PingFang SC;
 	font-weight: 500;
 	color: #333333;
 	margin-top: 20rpx;
 }
-.i_li_msg .d2 .d21.data-v-57280228{
+.i_li_msg .d2 .d21.data-v-57280228 {
 	color: #2E95F5;
 }
-.i_li_msg .d2 .d22.data-v-57280228{
+.i_li_msg .d2 .d22.data-v-57280228 {
 	color: #FD8D8D;
 }
-.index_btn.data-v-57280228{
+.index_btn.data-v-57280228 {
 	width: 193rpx;
 	height: 63rpx;
 	background: rgba(0, 207, 161, .77);
-	-webkit-border-radius: 32rpx;
-	        border-radius: 32rpx;
+	border-radius: 32rpx;
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
@@ -198,22 +191,21 @@
 	font-weight: 500;
 	color: #FFFFFF;
 }
-.index_btn1.data-v-57280228{
+.index_btn1.data-v-57280228 {
 	background: rgba(46, 149, 245, 1);
 }
-.xiandan.data-v-57280228{
+.xiandan.data-v-57280228 {
 	width: 111rpx;
 	height: 111rpx;
 	/* background: #30A1FF; */
 	/* box-shadow: 0px 3upx 7upx 0px rgba(0, 0, 0, 0.35); */
-	-webkit-border-radius: 50%;
-	        border-radius: 50%;
+	border-radius: 50%;
 	position: fixed;
 	bottom: 50rpx;
 
 
 
 	right: 30rpx;
-	z-index:900;
+	z-index: 900;
 }
 

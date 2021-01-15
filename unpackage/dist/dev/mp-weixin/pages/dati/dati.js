@@ -97,6 +97,16 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var m0 =
+    _vm.htmlReset == 0 && _vm.datas ? _vm.get_fwb(_vm.datas.description) : null
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        m0: m0
+      }
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -181,45 +191,26 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
 var _service = _interopRequireDefault(__webpack_require__(/*! ../../service.js */ 8));
-var _vuex = __webpack_require__(/*! vuex */ 10);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var _default =
+var _vuex = __webpack_require__(/*! vuex */ 10);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}
 
 
 
+var that;var _default =
 {
   data: function data() {
     return {
       type: 0,
+      id: '',
+      video_id: '',
       data_last: false,
       page: 1,
       size: 20,
-      datas: [
-      {
-        title: "我认为自己是一个易于紧张的人1" },
-
-      {
-        title: "我认为自己是一个易于紧张的人2" },
-
-      {
-        title: "我认为自己是一个易于紧张的人3" },
-
-      {
-        title: "我认为自己是一个易于紧张的人4" },
-
-      {
-        title: "我认为自己是一个易于紧张的人5" },
-
-      {
-        title: "我认为自己是一个易于紧张的人6" },
-
-      {
-        title: "我认为自己是一个易于紧张的人7" },
-
-      {
-        title: "我认为自己是一个易于紧张的人8" }],
-
-
+      htmlReset: -1,
+      datas: '',
+      question: [],
       btnkg: false,
       cur: 0 };
 
@@ -227,10 +218,12 @@ var _vuex = __webpack_require__(/*! vuex */ 10);function _interopRequireDefault(
   computed: _objectSpread(_objectSpread({},
   (0, _vuex.mapState)(['hasLogin', 'forcedLogin', 'userName', 'loginDatas'])), {}, {
     style1: function style1() {
-
-      var cur_num = this.cur / this.datas.length;
-      if (this.datas[this.cur].active > 0) {
-        cur_num = (this.cur * 1 + 1) / this.datas.length;
+      if (this.question.length == 0) {
+        return;
+      }
+      var cur_num = this.cur / this.question.length;
+      if (this.question[this.cur].active > -1) {
+        cur_num = (this.cur * 1 + 1) / this.question.length;
       }
       var style = "width:calc(100% * ".concat(cur_num, ");");
 
@@ -238,9 +231,12 @@ var _vuex = __webpack_require__(/*! vuex */ 10);function _interopRequireDefault(
     },
     style2: function style2() {
 
-      var cur_num = this.cur / this.datas.length;
-      if (this.datas[this.cur].active > 0) {
-        cur_num = (this.cur * 1 + 1) / this.datas.length;
+      if (this.question.length == 0) {
+        return;
+      }
+      var cur_num = this.cur / this.question.length;
+      if (this.question[this.cur].active > -1) {
+        cur_num = (this.cur * 1 + 1) / this.question.length;
       }
       var style = "left:calc(100% * ".concat(cur_num, ");");
 
@@ -248,8 +244,11 @@ var _vuex = __webpack_require__(/*! vuex */ 10);function _interopRequireDefault(
     },
     style3: function style3() {
 
+      if (this.question.length == 0) {
+        return;
+      }
       var cur_num = this.cur;
-      if (this.datas[this.cur].active > 0) {
+      if (this.question[this.cur].active > -1) {
         cur_num = this.cur * 1 + 1;
       }
       cur_num = cur_num.toFixed(0);
@@ -258,14 +257,85 @@ var _vuex = __webpack_require__(/*! vuex */ 10);function _interopRequireDefault(
       return cur_num;
     } }),
 
+  onLoad: function onLoad(option) {
+    that = this;
+    this.id = option.id;
+    this.video_id = option.video_id;
+    this.getdata();
+  },
   methods: {
+    getdata: function getdata() {
+      var that = this;
+
+      if (that.data_last) {
+        return;
+      }
+      var datas = {
+        token: that.loginDatas.token || '',
+        id: that.id,
+        video_id: that.video_id };
+
+      if (this.btnkg == 1) {
+        return;
+      }
+      this.btnkg = 1;
+      //selectSaraylDetailByUserCard
+      var jkurl = '/survey/show';
+      uni.showLoading({
+        title: '正在获取数据' });
+
+      var page_that = that.page;
+      _service.default.P_post(jkurl, datas).then(function (res) {
+        that.btnkg = 0;
+        console.log(res);
+        if (res.code == 1) {
+          that.htmlReset = 0;
+          var datas = res.data;
+          console.log(typeof datas);
+
+          if (typeof datas == 'string') {
+            datas = JSON.parse(datas);
+          }
+          console.log(res);
+
+          that.datas = datas;
+          that.question = datas.question;
+          // Vue.set(that.question[0], 'active', num)
+        } else {
+          that.htmlReset = 1;
+          if (res.msg) {
+            uni.showToast({
+              icon: 'none',
+              title: res.msg });
+
+          } else {
+            uni.showToast({
+              icon: 'none',
+              title: '获取失败' });
+
+          }
+        }
+      }).catch(function (e) {
+        that.htmlReset = 1;
+        that.btnkg = 0;
+        console.log(e);
+        uni.showToast({
+          icon: 'none',
+          title: '获取数据失败' });
+
+      });
+
+    },
+    get_fwb: function get_fwb(str) {
+      return _service.default.get_fwb(str);
+    },
     set_ans: function set_ans(num) {
       var that = this;
-      _vue.default.set(that.datas[that.cur], 'active', num);
+      _vue.default.set(that.question[that.cur], 'active', num);
     },
     pro_next: function pro_next() {
-      if (this.datas[this.cur].active > 0) {
-        if (this.cur < this.datas.length - 1) {
+      if (this.question[this.cur].active > -1) {
+        if (this.cur < this.question.length - 1) {
           this.cur++;
         } else {
           uni.showModal({
@@ -274,15 +344,82 @@ var _vuex = __webpack_require__(/*! vuex */ 10);function _interopRequireDefault(
             success: function success(res) {
               if (res.confirm) {
                 // console.log('用户点击确定');
-                uni.showToast({
-                  icon: 'none',
-                  title: '提交成功' });
+                var body = [];
+                for (var i = 0; i < that.question.length; i++) {
+                  var new_score = that.question[i].active - 1;
+                  var new_a = {
+                    id: that.question[i].id,
+                    title: that.question[i].title,
+                    score: that.question[i].active,
+                    type: that.question[i].active > 1 ? 1 : 0 };
 
-                setTimeout(function () {
-                  uni.switchTab({
-                    url: '../index/index' });
+                  body.push(new_a);
+                }
+                console.log(body);
+                var datas = {
+                  token: that.loginDatas.token || '',
+                  id: that.id,
+                  body: JSON.stringify(body),
+                  video_id: that.video_id };
 
-                }, 1000);
+                if (that.btnkg == 1) {
+                  return;
+                }
+                that.btnkg = 1;
+                //selectSaraylDetailByUserCard
+                var jkurl = '/survey/save';
+                uni.showLoading({
+                  title: '正在获取数据' });
+
+                var page_that = that.page;
+                _service.default.P_post(jkurl, datas).then(function (res) {
+                  that.btnkg = 0;
+                  console.log(res);
+                  if (res.code == 1) {
+                    that.htmlReset = 0;
+                    var datas = res.data;
+                    console.log(typeof datas);
+
+                    if (typeof datas == 'string') {
+                      datas = JSON.parse(datas);
+                    }
+                    console.log(res);
+                    uni.showToast({
+                      icon: 'none',
+                      title: '提交成功' });
+
+                    setTimeout(function () {
+                      uni.redirectTo({
+                        url: '/pages/fx_jieguo/fx_jieguo?id=' + datas.id + '&video_id=' + that.video_id });
+
+                      // uni.switchTab({
+                      // 	url: '../index/index'
+                      // })
+                    }, 1000);
+                  } else {
+                    that.htmlReset = 1;
+                    if (res.msg) {
+                      uni.showToast({
+                        icon: 'none',
+                        title: res.msg });
+
+                    } else {
+                      uni.showToast({
+                        icon: 'none',
+                        title: '获取失败' });
+
+                    }
+                  }
+                }).catch(function (e) {
+                  that.htmlReset = 1;
+                  that.btnkg = 0;
+                  console.log(e);
+                  uni.showToast({
+                    icon: 'none',
+                    title: '获取数据失败' });
+
+                });
+
               } else if (res.cancel) {
                 console.log('用户点击取消');
               }

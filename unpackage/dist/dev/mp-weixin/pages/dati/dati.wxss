@@ -1,48 +1,44 @@
 
-.dati_box.data-v-0757d774{
+.dati_box.data-v-0757d774 {
 	width: 100%;
 	padding: 30rpx;
 }
-.dati_tit.data-v-0757d774{
+.dati_tit.data-v-0757d774 {
 	font-size: 34rpx;
 	font-family: PingFang SC;
 	font-weight: 800;
 	color: #464646;
 	margin-bottom: 30rpx;
 }
-.dati_tip.data-v-0757d774{
+.dati_tip.data-v-0757d774 {
 	line-height: 55rpx;
 	font-size: 24rpx;
 	font-family: PingFang SC;
 	font-weight: 500;
 	color: #464646;
 }
-.dati_pro.data-v-0757d774{
+.dati_pro.data-v-0757d774 {
 	width: 100%;
 	height: 10rpx;
 	background: #F5F5F5;
-	-webkit-border-radius: 4rpx;
-	        border-radius: 4rpx;
+	border-radius: 4rpx;
 	margin: 50rpx auto;
 	position: relative;
 }
-.dati_1.data-v-0757d774{
+.dati_1.data-v-0757d774 {
 	width: 0;
 	height: 10rpx;
 	background: #30A1FF;
-	-webkit-border-radius: 4rpx;
-	        border-radius: 4rpx;
+	border-radius: 4rpx;
 }
-.dati_y.data-v-0757d774{
+.dati_y.data-v-0757d774 {
 	position: absolute;
 	top: -14rpx;
 	margin-left: -19rpx;
 	width: 38rpx;
 	height: 38rpx;
-	-webkit-border-radius: 50%;
-	        border-radius: 50%;
-	-webkit-box-shadow: 0px 0px 10rpx 0px rgba(0, 0, 0, 0.1);
-	        box-shadow: 0px 0px 10rpx 0px rgba(0, 0, 0, 0.1);
+	border-radius: 50%;
+	box-shadow: 0px 0px 10rpx 0px rgba(0, 0, 0, 0.1);
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
@@ -52,13 +48,13 @@
 	-webkit-box-pack: center;
 	-webkit-justify-content: center;
 	        justify-content: center;
-	border:6rpx solid #F6F6F6;
+	border: 6rpx solid #F6F6F6;
 	background: #fff;
 	color: #5AB3C3;
 	font-size: 18rpx;
 	line-height: 18rpx;
 }
-.dati_title.data-v-0757d774{
+.dati_title.data-v-0757d774 {
 	margin: 50rpx auto;
 	font-size: 30rpx;
 	font-family: PingFang;
@@ -66,7 +62,7 @@
 	color: #464646;
 	text-align: center;
 }
-.ans_li.data-v-0757d774{
+.ans_li.data-v-0757d774 {
 	font-size: 40rpx;
 	color: #498E6E;
 	margin: 0 24rpx;
@@ -78,16 +74,26 @@
 	        align-items: center;
 	position: relative;
 }
-.ans_li .iconfont.data-v-0757d774{
+.ans_li .iconfont.data-v-0757d774 {
 	font-size: 40rpx;
 }
-.ans_li1.data-v-0757d774{
+.ans_li1.data-v-0757d774 {
 	color: #91617B;
 }
-.ans_lis.data-v-0757d774{
+.ans_lis.data-v-0757d774 {
 	position: relative;
+	width: 100%;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	-webkit-box-pack: justify;
+	-webkit-justify-content: space-between;
+	        justify-content: space-between;
 }
-.ans_text.data-v-0757d774{
+.ans_text.data-v-0757d774 {
 	position: absolute;
 	bottom: -60rpx;
 	font-size: 28rpx;
@@ -97,20 +103,19 @@
 	left: 0;
 	right: 0;
 }
-.ans_li_z.data-v-0757d774,.ans_li_z .iconfont.data-v-0757d774{
+.ans_li_z.data-v-0757d774,
+.ans_li_z .iconfont.data-v-0757d774 {
 	font-size: 30rpx;
 }
-.cz_btns.data-v-0757d774{
+.cz_btns.data-v-0757d774 {
 	margin-top: 100rpx;
 }
-.jump_btn.data-v-0757d774{
+.jump_btn.data-v-0757d774 {
 	width: 289rpx;
 	height: 73rpx;
 	background: #30A1FF;
-	-webkit-box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
-	        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
-	-webkit-border-radius: 37rpx;
-	        border-radius: 37rpx;
+	box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+	border-radius: 37rpx;
 	font-size: 30rpx;
 	font-family: PingFang SC;
 	font-weight: 500;

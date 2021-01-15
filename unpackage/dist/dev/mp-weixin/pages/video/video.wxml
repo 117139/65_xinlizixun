@@ -1,1 +1,1 @@
-<view><video src="{{src}}" show-center-play-btn="{{true}}" enable-play-gesture="{{true}}"></video></view>
+<view><video src="{{$root.m0}}" poster="{{$root.m1}}" show-center-play-btn="{{true}}" enable-play-gesture="{{true}}"></video></view>

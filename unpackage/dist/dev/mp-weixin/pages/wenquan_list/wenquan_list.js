@@ -160,19 +160,51 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 var _service = _interopRequireDefault(__webpack_require__(/*! ../../service.js */ 8));
-var _vuex = __webpack_require__(/*! vuex */ 10);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var _default =
+var _vuex = __webpack_require__(/*! vuex */ 10);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}
 
 
 
+var that;var _default =
 {
   data: function data() {
     return {
       type: 0,
       data_last: false,
+      video_id: '',
       page: 1,
       size: 20,
-      datas: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+      htmlReset: -1,
+      datas: [],
       btnkg: false };
 
   },
@@ -180,12 +212,16 @@ var _vuex = __webpack_require__(/*! vuex */ 10);function _interopRequireDefault(
   (0, _vuex.mapState)(['hasLogin', 'forcedLogin', 'userName', 'loginDatas'])),
 
   onLoad: function onLoad(option) {
+    that = this;
+    this.video_id = option.video_id;
     if (option.type == 1) {
       this.type = 1;
+
       // uni.setNavigationBarTitle({
       // 	title:'视频分析'
       // })
     }
+    this.onRetry();
   },
   onPullDownRefresh: function onPullDownRefresh() {
     this.onRetry();
@@ -194,6 +230,12 @@ var _vuex = __webpack_require__(/*! vuex */ 10);function _interopRequireDefault(
     this.getdata();
   },
   methods: {
+    join_tip: function join_tip() {
+      uni.showToast({
+        icon: 'none',
+        title: '已参与过该调查' });
+
+    },
     onRetry: function onRetry() {
       this.page = 1;
       this.data_last = false;
@@ -202,37 +244,34 @@ var _vuex = __webpack_require__(/*! vuex */ 10);function _interopRequireDefault(
     },
     getdata: function getdata() {
       var that = this;
-      if (this.datas.length > 40) {
-        that.data_last = true;
-        return;
-      }
-      var datas = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
-      that.datas = that.datas.concat(datas);
-      return;
+
       if (that.data_last) {
         return;
       }
       var datas = {
-        token: that.loginDatas.userToken || '',
+        token: that.loginDatas.token || '',
         page: that.page,
         size: that.size,
-        title: that.search_key,
-        sort: that.sort };
+        video_id: that.video_id };
 
       if (this.btnkg == 1) {
         return;
       }
       this.btnkg = 1;
       //selectSaraylDetailByUserCard
-      var jkurl = '/';
+      var jkurl = '/survey/list';
+      if (that.type == 0) {
+        jkurl = "/my/getSurveyList";
+      }
       uni.showLoading({
         title: '正在获取数据' });
 
       var page_that = that.page;
-      _service.default.P_get(jkurl, datas).then(function (res) {
+      _service.default.P_post(jkurl, datas).then(function (res) {
         that.btnkg = 0;
         console.log(res);
         if (res.code == 1) {
+          that.htmlReset = 0;
           var datas = res.data;
           console.log(typeof datas);
 
@@ -240,28 +279,21 @@ var _vuex = __webpack_require__(/*! vuex */ 10);function _interopRequireDefault(
             datas = JSON.parse(datas);
           }
           console.log(res);
-          if (res.fj_data) {
-            that.setfj_data(res.fj_data);
-            if (res.fj_data.is_any_dy == 1) {
-              that.login_kg = true;
-            } else if (res.fj_data.is_any_dy == 2) {
-              that.login_kg = false;
-            }
 
-          }
           if (page_that == 1) {
 
-            that.datas = datas;
+            that.datas = datas.data;
           } else {
-            if (datas.length == 0) {
+            if (datas.data.length == 0) {
               that.data_last = true;
               return;
             }
-            that.datas = that.datas.concat(datas);
+            that.datas = that.datas.concat(datas.data);
           }
           that.page++;
 
         } else {
+          that.htmlReset = 1;
           if (res.msg) {
             uni.showToast({
               icon: 'none',
@@ -275,6 +307,7 @@ var _vuex = __webpack_require__(/*! vuex */ 10);function _interopRequireDefault(
           }
         }
       }).catch(function (e) {
+        that.htmlReset = 1;
         that.btnkg = 0;
         console.log(e);
         uni.showToast({
@@ -303,6 +336,9 @@ var _vuex = __webpack_require__(/*! vuex */ 10);function _interopRequireDefault(
       }
 
       _service.default.jump(e);
+    },
+    gettime: function gettime(time) {
+      return _service.default.gettime(time);
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

@@ -98,8 +98,8 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   var m0 =
-    _vm.hasLogin && _vm.loginDatas.img_url
-      ? _vm.getimg(_vm.loginDatas.img_url)
+    _vm.hasLogin && _vm.loginDatas.userInfo.avatar
+      ? _vm.getimg(_vm.loginDatas.userInfo.avatar)
       : null
 
   if (!_vm._isMounted) {
@@ -267,13 +267,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 var _service = _interopRequireDefault(__webpack_require__(/*! ../../service.js */ 8));
-var _vuex = __webpack_require__(/*! vuex */ 10);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var _default =
+var _vuex = __webpack_require__(/*! vuex */ 10);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}
 
 
 
-
+var that;var _default =
 {
   data: function data() {
     return {
@@ -290,24 +289,26 @@ var _vuex = __webpack_require__(/*! vuex */ 10);function _interopRequireDefault(
       PageScroll: '',
       fk_show: false,
       tk_show: true,
-      tximg: '/static/logo.png' };
+      tximg: '/static/logo.png',
+
+
+      kf_tel: '',
+      kf_email: '' };
 
   },
   onLoad: function onLoad() {
-    var yhxy = uni.getStorageSync('yhxy');
-    if (!yhxy) {
-      this.yhxy = true;
-    }
-    this.login('问心');
-    var datas = {
-      name: '问心',
-      img_url: 'https://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJiaCBO9f33YY9M3aWrjN2NWicT1n96dGNBQSzSKEpwXSn95gsPNNcM2IqOmoAvAbDHtxFdf9uU7d5w/132' };
 
-    this.logindata(datas);
+    that = this;
+    that.getdata();
+    // this.login('问心')
+    // var datas={
+    // 	name:'问心',
+    // 	img_url:'https://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJiaCBO9f33YY9M3aWrjN2NWicT1n96dGNBQSzSKEpwXSn95gsPNNcM2IqOmoAvAbDHtxFdf9uU7d5w/132'
+    // }
+    // this.logindata(datas)
 
   },
   onShow: function onShow() {
-    // service.wxlogin()
   },
   onPageScroll: function onPageScroll(e) {
     console.log(e);
@@ -354,39 +355,21 @@ var _vuex = __webpack_require__(/*! vuex */ 10);function _interopRequireDefault(
       console.log(_service.default.getimg(img));
       return _service.default.getimg(img);
     },
-    myUpload: function myUpload(rsp) {
-      var that = this;
-      var tximg = rsp.path; //更新头像方式一
-      this.tximg = tximg;
-      console.log(this.tximg);
-      uni.uploadFile({
-        url: _service.default.IPurl + 'user/upload_img', //仅为示例，非真实的接口地址
-        filePath: tximg,
-        name: 'img',
-        formData: {
-          token: that.loginDatas.token },
-
-        success: function success(uploadFileRes) {
-          console.log(uploadFileRes.data);
-          var ndata = JSON.parse(uploadFileRes.data);
-          if (ndata.code == 1 || ndata.code == 201) {
-            that.tximg = ndata.img_url;
-            var datas = {
-              token: that.loginDatas.token,
-              img_url: ndata.img_url };
-
-            that.set_tximg(datas);
-          }
-        } });
-
-      //rsp.avatar.imgSrc = rsp.path; //更新头像方式二
+    call: function call(str) {
+      _service.default.call(str);
     },
-    set_tximg: function set_tximg(datas) {var _this = this;
+    getdata: function getdata(num) {
       var that = this;
-      var jkurl = '/user/update_head';
 
-      _service.default.P_post(jkurl, datas).then(function (res) {
+      var datas = {
+        keyword: 'tel,email' };
 
+
+      //selectSaraylDetailByUserCard
+      var jkurl = '/info/list';
+
+      var page_that = that.page;
+      _service.default.P_get(jkurl, datas).then(function (res) {
         that.btn_kg = 0;
         console.log(res);
         if (res.code == 1) {
@@ -396,7 +379,9 @@ var _vuex = __webpack_require__(/*! vuex */ 10);function _interopRequireDefault(
           if (typeof datas == 'string') {
             datas = JSON.parse(datas);
           }
-          _service.default.tel_login();
+          console.log(res);
+          that.kf_tel = datas.tel[0];
+          that.kf_email = datas.email[0];
 
         } else {
           if (res.msg) {
@@ -407,13 +392,11 @@ var _vuex = __webpack_require__(/*! vuex */ 10);function _interopRequireDefault(
           } else {
             uni.showToast({
               icon: 'none',
-              title: '操作失败' });
+              title: '获取失败' });
 
           }
         }
       }).catch(function (e) {
-        _this.triggered = false;
-        _this._freshing = false;
         that.btn_kg = 0;
         console.log(e);
         uni.showToast({
@@ -421,145 +404,9 @@ var _vuex = __webpack_require__(/*! vuex */ 10);function _interopRequireDefault(
           title: '获取数据失败' });
 
       });
+
     },
-    onGetPhoneNumber: function onGetPhoneNumber(e) {
-      var that = this;
-      console.log(e.detail.errMsg);
-      console.log(e.detail.iv);
-      console.log(e.detail.encryptedData);
-      console.log(e.detail.encryptedData);
-      // return
-      if (e.detail.iv) {
-        //用户按了允许授权按钮后需要处理的逻辑方法体
-        wx.login({
-          success: function success(res) {
-            if (res.code) {//微信登录成功 已拿到code  
-              console.log(e.detail.iv);
-              var token = that.loginDatas.token;
-              var datas = {
-                encryptedData: e.detail.encryptedData,
-                iv: e.detail.iv,
-                code: res.code,
-                token: token };
 
-              //selectSaraylDetailByUserCard
-              var jkurl = '/data/wechat';
-
-              uni.showLoading({
-                title: '正在绑定手机号',
-                mask: true });
-
-              console.log(datas);
-              // return
-              _service.default.P_post(jkurl, datas).then(function (res) {
-
-                that.btn_kg = 0;
-                console.log(res);
-                if (res.code == 1) {
-                  var datas = res.data;
-                  console.log(typeof datas);
-                  console.log(datas);
-
-                  if (typeof datas == 'string') {
-                    datas = JSON.parse(datas);
-                  }
-                  uni.setStorageSync('account', datas.account);
-                  uni.showToast({
-                    icon: 'none',
-                    title: '操作成功' });
-
-                  setTimeout(function () {
-                    var account = uni.getStorageSync('account');
-                    var password = uni.getStorageSync('password');
-                    if (account) {
-                      var datas = {
-                        account: account,
-                        password: password };
-
-                      _service.default.tel_login(datas);
-                    }
-                  }, 500);
-                } else {
-                  that.btnkg = 0;
-                  if (res.msg) {
-                    uni.showToast({
-                      icon: 'none',
-                      title: res.msg });
-
-                  } else {
-                    uni.showToast({
-                      icon: 'none',
-                      title: '操作失败' });
-
-                  }
-                }
-              }).catch(function (e) {
-                that.btn_kg = 0;
-
-                uni.showToast({
-                  icon: 'none',
-                  title: '操作失败' });
-
-
-              });
-
-            } else {
-              console.log('登录失败！' + res.errMsg);
-            }
-          } });
-
-
-
-      } else {
-        //用户按了拒绝按钮
-        // uni.showModal({
-        // 	title: '警告',
-        // 	content: '您点击了拒绝授权，将无法登录小程序，请点击返回授权!!!',
-        // 	showCancel: false,
-        // 	confirmText: '返回授权',
-        // 	success: function(res) {
-        // 		if (res.confirm) {
-        // 			console.log('用户点击了“返回授权”')
-        // 		}
-        // 	}
-        // })
-      }
-    },
-    fabu_status: function fabu_status() {
-      var that = this;
-      if (that.loginDatas.dy_status == 3) {
-        var now = Date.parse(new Date());
-        console.log(now);
-        console.log(that.loginDatas.dy_start_status * 1000);
-        console.log(that.loginDatas.dy_end_status * 1000);
-        console.log(1667567600000 < now);
-        console.log(that.loginDatas.dy_end_status * 1000 > now);
-        console.log(1667567600000 < now && that.loginDatas.dy_end_status * 1000 > now);
-        if (that.loginDatas.dy_start_status * 1000 < now && that.loginDatas.dy_end_status * 1000 > now) {
-          return true;
-        }
-      }
-      return false;
-    },
-    gettime: function gettime(time) {
-      var time = new Date(time * 1000);
-      var year = time.getFullYear();
-      var month = time.getMonth() + 1;
-      var date = time.getDate();
-      var hour = time.getHours();
-      var minute = time.getMinutes();
-      var second = time.getSeconds();
-      month = month < 10 ? "0" + month : month;
-      date = date < 10 ? "0" + date : date;
-      hour = hour < 10 ? "0" + hour : hour;
-      minute = minute < 10 ? "0" + minute : minute;
-      second = second < 10 ? "0" + second : second;
-      return year + '-' + month + '-' + date;
-    },
-    call: function call(e) {
-      console.log(e);
-      _service.default.call(e);
-    },
     bindLogin: function bindLogin() {
       uni.navigateTo({
         url: '../login/login' });

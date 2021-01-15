@@ -109,6 +109,24 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var l0 = _vm.__map(_vm.datas, function(item, __i0__) {
+    var $orig = _vm.__get_orig(item)
+
+    var m0 = _vm.getimg(item.pic)
+    return {
+      $orig: $orig,
+      m0: m0
+    }
+  })
+
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        l0: l0
+      }
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -196,13 +214,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
+var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 2));
 var _service = _interopRequireDefault(__webpack_require__(/*! ../../service.js */ 8));
-var _vuex = __webpack_require__(/*! vuex */ 10);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var _default =
+var _vuex = __webpack_require__(/*! vuex */ 10);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}
 
 
 
-
+var that;var _default =
 {
   data: function data() {
     return {
@@ -214,8 +232,8 @@ var _vuex = __webpack_require__(/*! vuex */ 10);function _interopRequireDefault(
       time_zz: '你好',
       StatusBar: this.StatusBar,
       CustomBar: this.CustomBar,
-      datas: [
-      {
+      datas: [],
+      datas1: [{
         img: '../../static/images/index_03.jpg',
         time: '2020-09-01 20:20',
         type: 1,
@@ -273,38 +291,41 @@ var _vuex = __webpack_require__(/*! vuex */ 10);function _interopRequireDefault(
 
   },
   watch: {
-    hasLogin: function hasLogin() {
+    hasLogin: function hasLogin(newval, oldval) {
       var that = this;
-      this.btn_kg = 0;
-      this.onRetry();
-      wx.getSetting({
-        withSubscriptions: true,
-        success: function success(res) {
-          console.log('res.authSetting');
-          console.log(res);
-          console.log(res.authSetting);
-          var itemSettings = res.subscriptionsSetting.itemSettings;
-          console.log('itemSettings');
-          console.log(itemSettings);
-          /*if (itemSettings) {
-                                     	 if (itemSettings['-I6lIPrxg8bcr5AdAUtzPuksKa9hodpyD58cKPHfR8I'] === 'accept') {
-                                     		 console.log('is accredit：ok')
-                                     	 }else{
-                                     		 that.show_tk=true
-                                     	 }
-                                     }else{
-                                     	 that.show_tk=true
-                                     }*/
+      that.btn_kg = 0;
+      if (newval) {
+        that.onRetry();
+        wx.getSetting({
+          withSubscriptions: true,
+          success: function success(res) {
+            console.log('res.authSetting');
+            console.log(res);
+            console.log(res.authSetting);
+            var itemSettings = res.subscriptionsSetting.itemSettings;
+            console.log('itemSettings');
+            console.log(itemSettings);
+            /*if (itemSettings) {
+                                       	 if (itemSettings['-I6lIPrxg8bcr5AdAUtzPuksKa9hodpyD58cKPHfR8I'] === 'accept') {
+                                       		 console.log('is accredit：ok')
+                                       	 }else{
+                                       		 that.show_tk=true
+                                       	 }
+                                       }else{
+                                       	 that.show_tk=true
+                                       }*/
 
-        } });
+          } });
+
+      }
 
     } },
 
   onLoad: function onLoad() {
     var yhxy = uni.getStorageSync('yhxy');
-
+    that = this;
     this._freshing = false;
-    this.onRetry();
+    // this.onRetry()
   },
   onPageScroll: function onPageScroll(e) {
     console.log(e);
@@ -349,26 +370,133 @@ var _vuex = __webpack_require__(/*! vuex */ 10);function _interopRequireDefault(
   methods: _objectSpread(_objectSpread({},
   (0, _vuex.mapMutations)(['login', 'logindata', 'logout', 'setplatform', 'setfj_data'])), {}, {
     fabu_fuc: function fabu_fuc() {
-      uni.chooseVideo({
-        count: 1,
-        sourceType: ['camera', 'album'],
-        compressed: true,
-        maxDuration: '15',
+      uni.showActionSheet({
+        itemList: ['拍摄', '相册'],
         success: function success(res) {
-          var src = res.tempFilePath;
-          console.log(src);
-          uni.showLoading({
-            mask: true,
-            title: '正在上传视频' });
+          console.log('选中了第' + (res.tapIndex + 1) + '个按钮');
+          var sourceType = ['camera', 'album'];
+          if (res.tapIndex == 0) {
+            sourceType = ['camera'];
+          } else {
+            sourceType = ['album'];
+          }
+          uni.chooseMedia({
+            count: 1,
+            sourceType: sourceType,
+            mediaType: ['video'],
+            compressed: true,
+            maxDuration: '60',
+            success: function success(res) {
+              var src = res.tempFiles[0].tempFilePath;
+              var src_temp = res.tempFiles[0].thumbTempFilePath;
+              console.log(res);
+              console.log(src);
+              console.log(src_temp);
+              // Vue.set(that.datas[0],'pic1',src_temp)
+              // return
+              if (that.btn_kg == 1) {
+                return;
+              }
+              that.btn_kg = 1;
+              uni.showLoading({
+                mask: true,
+                title: '正在获取视频封面' });
 
-          setTimeout(function () {
-            uni.hideLoading();
-            uni.showToast({
-              icon: 'none',
-              title: '上传成功' });
+              uni.uploadFile({
+                url: _service.default.IPurl + '/upload', //仅为示例，非真实的接口地址
+                filePath: src_temp,
+                name: 'file',
+                formData: {
+                  token: that.loginDatas.token,
+                  type: 1 },
 
-          }, 4000);
+                success: function success(uploadFileRes) {
+                  console.log(uploadFileRes.data);
+                  var ndata_temp = JSON.parse(uploadFileRes.data);
+                  uni.hideLoading();
+                  uni.showLoading({
+                    mask: true,
+                    title: '正在上传视频' });
+
+                  uni.uploadFile({
+                    url: _service.default.IPurl + '/upload', //仅为示例，非真实的接口地址
+                    filePath: src,
+                    name: 'file',
+                    formData: {
+                      token: that.loginDatas.token,
+                      type: 2 },
+
+                    success: function success(uploadFileRes) {
+                      console.log(uploadFileRes.data);
+                      var ndata = JSON.parse(uploadFileRes.data);
+                      var datas = {
+                        token: that.loginDatas.token || '',
+                        pic: ndata_temp.data,
+                        video: ndata.data };
+
+
+                      //selectSaraylDetailByUserCard
+                      var jkurl = '/issue/save';
+                      uni.showLoading({
+                        title: '正在上传数据' });
+
+                      _service.default.P_post(jkurl, datas).then(function (res) {
+                        that.btn_kg = 0;
+                        console.log(res);
+                        if (res.code == 1) {
+                          var datas = res.data;
+                          console.log(typeof datas);
+
+                          if (typeof datas == 'string') {
+                            datas = JSON.parse(datas);
+                          }
+                          uni.showToast({
+                            icon: 'none',
+                            title: '上传成功' });
+
+                          that.onRetry();
+
+                        } else {
+                          if (res.msg) {
+                            uni.showToast({
+                              icon: 'none',
+                              title: res.msg });
+
+                          } else {
+                            uni.showToast({
+                              icon: 'none',
+                              title: '操作失败' });
+
+                          }
+                        }
+                      }).catch(function (e) {
+                        that.btn_kg = 0;
+                        console.log(e);
+                        uni.showToast({
+                          icon: 'none',
+                          title: '获取数据失败' });
+
+                      });
+
+                    } });
+
+                } });
+
+              // setTimeout(() => {
+              // 	uni.hideLoading()
+              // 	uni.showToast({
+              // 		icon: 'none',
+              // 		title: '上传成功'
+              // 	})
+              // }, 4000)
+            } });
+
+        },
+        fail: function fail(res) {
+          console.log(res.errMsg);
         } });
+
+
 
     },
     authMsg: function authMsg(event) {
@@ -422,67 +550,7 @@ var _vuex = __webpack_require__(/*! vuex */ 10);function _interopRequireDefault(
         _this._freshing = false;
       }, 300);
 
-      return;
-      var datas = {
-        token: that.loginDatas.userToken,
-        page: 1,
-        size: that.size,
-        title: that.search_key,
-        sort: that.sort };
-
-      if (that.btn_kg == 1) {
-        return;
-      }
-      that.btn_kg = 1;
-      //selectSaraylDetailByUserCard
-      var jkurl = '/';
-      uni.showLoading({
-        title: '正在获取数据' });
-
-      _service.default.P_get(jkurl, datas).then(function (res) {
-        _this.triggered = false;
-        _this._freshing = false;
-        that.btn_kg = 0;
-        console.log(res);
-        if (res.code == 1) {
-          var datas = res.data;
-          console.log(typeof datas);
-
-          if (typeof datas == 'string') {
-            datas = JSON.parse(datas);
-          }
-          console.log(datas);
-          if (res.resfj_data) {
-            that.setfj_data(res.resfj_data);
-          }
-
-          that.datas = datas;
-
-          that.page = 2;
-
-        } else {
-          if (res.msg) {
-            uni.showToast({
-              icon: 'none',
-              title: res.msg });
-
-          } else {
-            uni.showToast({
-              icon: 'none',
-              title: '操作失败' });
-
-          }
-        }
-      }).catch(function (e) {
-        _this.triggered = false;
-        _this._freshing = false;
-        that.btn_kg = 0;
-        console.log(e);
-        uni.showToast({
-          icon: 'none',
-          title: '获取数据失败' });
-
-      });
+      that.onRetry();
 
     },
     onRestore: function onRestore() {
@@ -503,6 +571,7 @@ var _vuex = __webpack_require__(/*! vuex */ 10);function _interopRequireDefault(
     },
     onRetry: function onRetry() {
       this.page = 1;
+      this.data = [];
       this.data_last = false;
       this.getdata();
     },
@@ -512,28 +581,25 @@ var _vuex = __webpack_require__(/*! vuex */ 10);function _interopRequireDefault(
     },
     getdata: function getdata(num) {
       var that = this;
-      return;
       if (that.data_last) {
         return;
       }
       var datas = {
-        token: that.loginDatas.userToken || '',
+        token: that.loginDatas.token || '',
         page: that.page,
-        size: that.size,
-        title: that.search_key,
-        sort: that.sort };
+        size: that.size };
 
       if (this.btn_kg == 1) {
         return;
       }
       this.btn_kg = 1;
       //selectSaraylDetailByUserCard
-      var jkurl = '/';
+      var jkurl = '/issue/list';
       uni.showLoading({
         title: '正在获取数据' });
 
       var page_that = that.page;
-      _service.default.P_get(jkurl, datas).then(function (res) {
+      _service.default.P_post(jkurl, datas).then(function (res) {
         that.btn_kg = 0;
         console.log(res);
         if (res.code == 1) {
@@ -543,25 +609,15 @@ var _vuex = __webpack_require__(/*! vuex */ 10);function _interopRequireDefault(
           if (typeof datas == 'string') {
             datas = JSON.parse(datas);
           }
-          console.log(res);
-          if (res.fj_data) {
-            that.setfj_data(res.fj_data);
-            if (res.fj_data.is_any_dy == 1) {
-              that.login_kg = true;
-            } else if (res.fj_data.is_any_dy == 2) {
-              that.login_kg = false;
-            }
-
-          }
           if (page_that == 1) {
 
-            that.datas = datas;
+            that.datas = datas.data;
           } else {
-            if (datas.length == 0) {
+            if (datas.data.length == 0) {
               that.data_last = true;
               return;
             }
-            that.datas = that.datas.concat(datas);
+            that.datas = that.datas.concat(datas.data);
           }
           that.page++;
 

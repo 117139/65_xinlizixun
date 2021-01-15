@@ -34,8 +34,7 @@
 	width: 690rpx;
 	height: 88rpx;
 	background: #1AAC19;
-	-webkit-border-radius: 44rpx;
-	        border-radius: 44rpx;
+	border-radius: 44rpx;
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: flex;
@@ -52,5 +51,13 @@
 	width: 53rpx;
 	height: 43rpx;
 	margin-right: 30rpx;
+}
+.goback_btn.data-v-b237504c{
+	width: 690rpx;
+	height: 95rpx;
+	margin: 30px auto;
+	background: #fff;
+	border-radius: 95rpx;
+	border: 1px solid #eee;
 }
 
